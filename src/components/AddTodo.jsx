@@ -1,23 +1,32 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 function AddTodo({ onNewItem }) {
 
-    const [todoName, setTodoName] = useState('')
-    const [dueDate, setDueDate] = useState('')
+    const todoNameElement = useRef()
+    const dueDateElement = useRef()
 
-    const handleNameChange = (event) => {
-        setTodoName(event.target.value)
-    }
+    // const [todoName, setTodoName] = useState('')
+    // const [dueDate, setDueDate] = useState('')
 
-    const handleDueDateChange = (event) => {
-        setDueDate(event.target.value)
-    }
+    // const handleNameChange = (event) => {
+    //     setTodoName(event.target.value)
+    // }
+
+    // const handleDueDateChange = (event) => {
+    //     setDueDate(event.target.value)
+    // }
 
     const handleAddButtonClick = (event) => {
         event.preventDefault()              // use only while using form
+        const todoName = todoNameElement.current.value;
+        const dueDate = dueDateElement.current.value
+        todoNameElement.current.value = ''
+        dueDateElement.current.value = ''
         onNewItem(todoName, dueDate)
-        setTodoName('')
-        setDueDate('')
+
+        // Use while using useState 
+        // setTodoName('')
+        // setDueDate('')
     }
 
     // return (
@@ -46,12 +55,15 @@ function AddTodo({ onNewItem }) {
         <div className="container item-container">
             <form className="row my-row" onSubmit={handleAddButtonClick}>
                 <div className="col-6">
-                    <input type="text" placeholder="Enter todo here"
-                        value={todoName}
-                        onChange={handleNameChange} />
+                    <input type="text"
+                        ref={todoNameElement}
+                        placeholder="Enter todo here"
+                    />
                 </div>
                 <div className="col-4">
-                    <input type="date" value={dueDate} onChange={handleDueDateChange} />
+                    <input type="date"
+                        ref={dueDateElement}
+                    />
                 </div>
                 <div className="col-2">
                     <button className="btn btn-success my-button">
