@@ -8,30 +8,26 @@ import "./App.css"
 import NoTodoItems from './components/NoTodoItems'
 
 function App() {
-  // const todoItemList = [
-  //   {
-  //     todoName: 'learn React',
-  //     dueDate: '31/12/2023'
-  //   },
-  //   {
-  //     todoName: 'learn Nodejs',
-  //     dueDate: '05/01/2024'
-  //   },
-  //   {
-  //     todoName: 'learn todo',
-  //     dueDate: '05/01/2024'
-  //   }
-  // ];
-
   const [todoItems, setTodoItems] = useState([])
 
+  // const handleNewItem = (itemName, itemDueDate) => {
+  //   console.log(`New item added: ${itemName} Date: ${itemDueDate}`)
+  //   const newTodoItem = [
+  //     ...todoItems,
+  //     { todoName: itemName, dueDate: itemDueDate },
+  //   ];
+  //   setTodoItems(newTodoItem)
+  // }
+
+  // Functional update  Use this instead of handleNewItem function
   const handleNewItem = (itemName, itemDueDate) => {
-    console.log(`New item added: ${itemName} Date: ${itemDueDate}`)
-    const newTodoItem = [
-      ...todoItems,
-      { todoName: itemName, dueDate: itemDueDate },
-    ];
-    setTodoItems(newTodoItem)
+    setTodoItems((currValue) => {
+      const newTodoItem = [
+        ...currValue,
+        { todoName: itemName, dueDate: itemDueDate },
+      ]
+      return newTodoItem
+    })
   }
 
   const handleDeleteItem = (itemName) => {
